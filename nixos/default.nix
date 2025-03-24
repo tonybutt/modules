@@ -17,7 +17,9 @@ in
     ./users
   ];
   options = {
-    modules.enable = mkEnableOption "Enable NixOS modules" // {default = true;};
+    modules.enable = mkEnableOption "Enable NixOS modules" // {
+      default = true;
+    };
     modules.timeZone = mkOption {
       type = types.str;
       default = "America/New_York";
@@ -35,10 +37,29 @@ in
       settings = {
         trusted-users = [ user.name ];
         experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+          "nix-command"
+          "flakes"
+        ];
       };
+    };
+
+    boot = {
+      loader.grub = {
+        enable = true;
+        efiSupport = true;
+      };
+      # Plymouth (Theming for booting screen and drive unlock screen)
+      plymouth.enable = true;
+      # Disable(quiet) most of the logging that happens during boot
+      initrd = {
+        verbose = false;
+        systemd.enable = true;
+      };
+      consoleLogLevel = 0;
+      kernelParams = [
+        "quiet"
+        "udev.log_level=0"
+      ];
     };
 
     networking = {

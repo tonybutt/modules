@@ -9,12 +9,11 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       treefmt,
       systems,
       ...
-    }@inputs:
+    }:
     let
       forEachSystem =
         f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
@@ -23,12 +22,12 @@
     {
       formatter = forEachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
       nixosModules.secondfront =
-        { inputs, ... }:
+        { ... }:
         {
           imports = [ ./nixos ];
         };
       homeManagerModules.secondfront =
-        { inputs, ... }:
+        { ... }:
         {
           imports = [ ./hm ];
         };

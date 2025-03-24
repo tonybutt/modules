@@ -11,7 +11,9 @@ let
 in
 {
   options = {
-    modules.virutalization.enable = mkEnableOption "Enable virtualization" // {default = true;};
+    modules.virutalization.enable = mkEnableOption "Enable virtualization" // {
+      default = true;
+    };
   };
   config = mkIf cfg.enable {
     boot.kernelModules = [ "vfio-pci" ];

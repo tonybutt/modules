@@ -14,8 +14,8 @@ let
 in
 {
   options = {
-    modules.hyprland.enable = mkEnableOption "Enable hyprland module"// {
-        default = true;
+    modules.hyprland.enable = mkEnableOption "Enable hyprland module" // {
+      default = true;
     };
   };
   config = mkIf cfg.enable {
@@ -63,6 +63,9 @@ in
       package = hypr-nixpkgs.mesa;
       package32 = hypr-nixpkgs.pkgsi686Linux.mesa;
       enable32Bit = true;
+    };
+    environment.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
     };
   };
 }
