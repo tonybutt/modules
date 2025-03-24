@@ -11,7 +11,7 @@ let
 in
 {
   options = {
-    modules.users.enable = mkEnableOption "Enable users module" mkDefault true;
+    modules.users.enable = mkEnableOption "Enable users module" // {default = true;};
   };
   config = mkIf cfg.users.enable {
     users = {

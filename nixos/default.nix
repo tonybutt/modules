@@ -16,7 +16,7 @@ in
     ./users
   ];
   options = {
-    modules.enable = mkEnableOption "Enable NixOS modules" mkDefault true;
+    modules.enable = mkEnableOption "Enable NixOS modules" // {default = true;};
     modules.timeZone = mkOption {
       type = types.str;
       default = "America/New_York";

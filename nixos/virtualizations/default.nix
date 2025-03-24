@@ -11,7 +11,7 @@ let
 in
 {
   options = {
-    modules.virutalization.enable = mkEnableOption "Enable virtualization" mkDefault true;
+    modules.virutalization.enable = mkEnableOption "Enable virtualization" // {default = true;};
   };
   config = mkIf cfg.enable {
     users = {

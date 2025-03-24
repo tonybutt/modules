@@ -5,9 +5,9 @@ let
 in
 {
   options = {
-    peripherals.enable = mkEnableOption "Enable peripheral configuration" lib.mkDefault true;
-    peripherals.obs.enable = mkEnableOption "Enable OBS virtual camera" lib.mkDefault false;
-    peripherals.scarlettRite.enable = mkEnableOption "Enable Scarlett Rite" lib.mkDefault false;
+    peripherals.enable = mkEnableOption "Enable peripheral configuration" // {default = true;};
+    peripherals.obs.enable = mkEnableOption "Enable OBS virtual camera";
+    peripherals.scarlettRite.enable = mkEnableOption "Enable Scarlett Rite";
   };
   config = mkIf cfg.enable {
     boot = {
