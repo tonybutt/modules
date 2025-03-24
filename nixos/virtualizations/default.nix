@@ -20,7 +20,7 @@ in
 
     users = {
       users.${user.name} = {
-        extraGroups = config.users.${user.name}.extraGroups ++ [
+        extraGroups = mkAfter [
           "docker"
           "libvirtd"
           "qemu-libvirtd"
