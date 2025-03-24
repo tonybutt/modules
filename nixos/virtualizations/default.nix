@@ -7,11 +7,11 @@
 }:
 with lib;
 let
-  cfg = config.modules.virutalization;
+  cfg = config.modules.virtualization;
 in
 {
   options = {
-    modules.virutalization.enable = mkEnableOption "Enable virtualization" // {
+    modules.virtualization.enable = mkEnableOption "Enable virtualization" // {
       default = true;
     };
   };
