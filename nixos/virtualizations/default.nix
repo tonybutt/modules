@@ -14,6 +14,8 @@ in
     modules.virutalization.enable = mkEnableOption "Enable virtualization" // {default = true;};
   };
   config = mkIf cfg.enable {
+    boot.kernelModules = [ "vfio-pci" ];
+
     users = {
       users.${user.name} = {
         extraGroups = config.users.${user.name}.extraGroups ++ [
