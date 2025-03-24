@@ -15,7 +15,7 @@ in
     ./wms
     ./peripherals
     ./users
-    ./vitualizations
+    ./virtualizations
   ];
   options = {
     modules.enable = mkEnableOption "Enable NixOS modules" // {
