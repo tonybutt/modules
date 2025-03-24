@@ -9,6 +9,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       treefmt,
       systems,
@@ -24,7 +25,7 @@
       nixosModules.secondfront =
         { ... }:
         {
-          inherit inputs;
+          inherit (self) inputs;
           imports = [ ./nixos ];
         };
       homeManagerModules.secondfront =
