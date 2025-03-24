@@ -25,13 +25,11 @@
       nixosModules.secondfront =
         { ... }:
         {
-          inherit (self) inputs;
           imports = [ ./nixos ];
         };
       homeManagerModules.secondfront =
         { ... }:
         {
-          inherit inputs;
           imports = [ ./hm ];
         };
     };
