@@ -58,11 +58,17 @@ in
         hypr-pkgs.xdg-desktop-portal-hyprland
       ];
     };
-    hardware.graphics = {
-      enable = true;
-      package = hypr-nixpkgs.mesa;
-      package32 = hypr-nixpkgs.pkgsi686Linux.mesa;
-      enable32Bit = true;
+    hardware = {
+      nvidia = {
+        open = true;
+        powerManagement.enable = true;
+      };
+      graphics = {
+        enable = true;
+        package = hypr-nixpkgs.mesa;
+        package32 = hypr-nixpkgs.pkgsi686Linux.mesa;
+        enable32Bit = true;
+      };
     };
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
