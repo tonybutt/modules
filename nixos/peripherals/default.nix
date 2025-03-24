@@ -1,13 +1,13 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.peripherals;
+  cfg = config.modules.peripherals;
 in
 {
   options = {
-    peripherals.enable = mkEnableOption "Enable peripheral configuration" // {default = true;};
-    peripherals.obs.enable = mkEnableOption "Enable OBS virtual camera";
-    peripherals.scarlettRite.enable = mkEnableOption "Enable Scarlett Rite";
+    modules.peripherals.enable = mkEnableOption "Enable peripheral configuration" // {default = true;};
+    modules.peripherals.obs.enable = mkEnableOption "Enable OBS virtual camera";
+    modules.peripherals.scarlettRite.enable = mkEnableOption "Enable Scarlett Rite";
   };
   config = mkIf cfg.enable {
     boot = {
