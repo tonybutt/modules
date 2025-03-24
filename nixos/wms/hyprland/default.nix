@@ -46,7 +46,7 @@ in
     };
     programs.hyprland = {
       enable = true;
-      package = hypr-pkgs;
+      package = hypr-pkgs.hyprland;
       portalPackage = hypr-pkgs.xdg-desktop-portal-hyprland;
       xwayland.enable = true;
     };
