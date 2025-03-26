@@ -10,7 +10,7 @@ in
     };
     secondfront.hyprland.monitors = mkOption {
       description = "List of monitors to configure for Hyprland.";
-      type = listOf submodule ({
+      type = types.listOf types.submodule ({
         name = mkOption { type = str; };
         resolution = mkOption { type = str; };
         position = mkOption { type = str; };
