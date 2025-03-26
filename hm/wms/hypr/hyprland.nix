@@ -1,7 +1,12 @@
 { config, lib, ... }:
 let
   cfg = config.secondfront.hyprland;
-  inherit (lib) mkIf mkEnableOption mkOption types;
+  inherit (lib)
+    mkIf
+    mkEnableOption
+    mkOption
+    types
+    ;
 in
 {
   options = {
@@ -9,42 +14,42 @@ in
       default = true;
     };
     secondfront.hyprland.monitors = mkOption {
-        type = types.listOf (
-          types.submodule {
-            options = {
-              name = mkOption {
-                type = types.str;
-                example = "DP-1";
-              };
-              width = mkOption {
-                type = types.int;
-                example = 1920;
-              };
-              height = mkOption {
-                type = types.int;
-                example = 1080;
-              };
-              refreshRate = mkOption {
-                type = types.int;
-                default = 60;
-              };
-              position = mkOption {
-                type = types.str;
-                default = "auto";
-              };
-              enabled = mkOption {
-                type = types.bool;
-                default = true;
-              };
-              workspace = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-              };
+      type = types.listOf (
+        types.submodule {
+          options = {
+            name = mkOption {
+              type = types.str;
+              example = "DP-1";
             };
-          }
-        );
-        default = [];
-      };
+            width = mkOption {
+              type = types.int;
+              example = 1920;
+            };
+            height = mkOption {
+              type = types.int;
+              example = 1080;
+            };
+            refreshRate = mkOption {
+              type = types.int;
+              default = 60;
+            };
+            position = mkOption {
+              type = types.str;
+              default = "auto";
+            };
+            enabled = mkOption {
+              type = types.bool;
+              default = true;
+            };
+            workspace = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+            };
+          };
+        }
+      );
+      default = [ ];
+    };
     secondfront.hyprland.mainMod = mkOption {
       type = types.str;
       default = "SUPER";
@@ -103,12 +108,9 @@ in
           };
 
           monitor =
-            (builtins.map (m:"${m.name},${
-              if m.enabled
-              then "preferred,${m.position},1"
-              else "disabled"
-              }"
-            ) (cfg.monitors))
+            (builtins.map (m: "${m.name},${if m.enabled then "preferred,${m.position},1" else "disabled"}") (
+              cfg.monitors
+            ))
             ++ [
               ",preferred,auto,1"
             ];

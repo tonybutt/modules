@@ -13,8 +13,7 @@ in
     services.hyprpaper = {
       enable = true;
       settings = {
-        preload = [
-        ];
+        preload = [ ];
         wallpaper = [
           ",~/Wallpapers/Lavendar.png"
         ];
