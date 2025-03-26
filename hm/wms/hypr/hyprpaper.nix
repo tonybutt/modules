@@ -10,7 +10,7 @@ in
     };
   };
   config = mkIf cfg.enable {
-    hyprpaper = {
+    programs.hyprpaper = {
       enable = true;
       settings = {
         preload = [
