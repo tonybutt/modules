@@ -1,39 +1,52 @@
 { config, lib, ... }:
-with lib;
 let
   cfg = config.secondfront.hyprland;
+  inherit (lib) mkIf mkEnableOption mkOption types;
 in
 {
-  options = with types; {
+  options = {
     secondfront.hyprland.enable = mkEnableOption "Enable hyprland window Manager" // {
       default = true;
     };
     secondfront.hyprland.monitors = mkOption {
-      description = "List of monitors to configure for Hyprland.";
-      type = types.listOf types.submodule ({
-        name = mkOption { type = str; };
-        resolution = mkOption { type = str; };
-        position = mkOption { type = str; };
-        scale = mkOption { type = str; };
-      });
-      default = [ ];
-      example = [
-        {
-          name = "eDP-1";
-          resolution = "1920x1080";
-          position = "0x0";
-          scale = "1";
-        }
-        {
-          name = "DP-7";
-          resolution = "2560x1440";
-          position = "auto-right";
-          scale = "1";
-        }
-      ];
-    };
+        type = types.listOf (
+          types.submodule {
+            options = {
+              name = mkOption {
+                type = types.str;
+                example = "DP-1";
+              };
+              width = mkOption {
+                type = types.int;
+                example = 1920;
+              };
+              height = mkOption {
+                type = types.int;
+                example = 1080;
+              };
+              refreshRate = mkOption {
+                type = types.int;
+                default = 60;
+              };
+              position = mkOption {
+                type = types.str;
+                default = "auto";
+              };
+              enabled = mkOption {
+                type = types.bool;
+                default = true;
+              };
+              workspace = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+              };
+            };
+          }
+        );
+        default = [];
+      };
     secondfront.hyprland.mainMod = mkOption {
-      type = str;
+      type = types.str;
       default = "SUPER";
       example = "CTRL";
       description = "The main modifier key for Hyprland bindings.";
@@ -90,7 +103,12 @@ in
           };
 
           monitors =
-            (builtins.map (m: "${m.name},${m.resolution}.${m.position},${m.scale}") cfg.monitors)
+            (builtins.map (m:"${m.name},${
+              if m.enabled
+              then "${builtins.toString m.width}x${builtins.toString m.height}@${builtins.toString m.refreshRate},${m.position},1"
+              else "disabled"
+              }"
+            ) (cfg.monitors))
             ++ [
               ",preferred,auto,1"
             ];
