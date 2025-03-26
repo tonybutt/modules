@@ -102,7 +102,7 @@ in
             sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
           };
 
-          monitors =
+          monitor =
             (builtins.map (m:"${m.name},${
               if m.enabled
               then "preferred,${m.position},1"
