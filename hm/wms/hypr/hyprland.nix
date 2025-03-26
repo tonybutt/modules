@@ -5,6 +5,9 @@ let
 in
 {
   options = with types; {
+    secondfront.hyprland.enable = mkEnableOption "Enable hyprland window Manager" // {
+      default = true;
+    };
     secondfront.hyprland.monitors = mkOption {
       description = "List of monitors to configure for Hyprland.";
       type = listOf submodule ({
