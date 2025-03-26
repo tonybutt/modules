@@ -1,5 +1,6 @@
 {
   imports = [
     ./wms
+    ./browsers
   ];
 }
