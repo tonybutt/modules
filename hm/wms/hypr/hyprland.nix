@@ -53,7 +53,7 @@ in
     };
   };
   config = mkIf cfg.enable {
-    wayland.windowManagers.hyprland = {
+    wayland.windowManager.hyprland = {
       enable = true;
       package = null;
       portalPackage = null;
