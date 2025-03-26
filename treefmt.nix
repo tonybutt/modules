@@ -5,5 +5,6 @@
     deadnix.enable = true;
     nixfmt.enable = true;
     nixfmt.priority = 1;
+    prettier.enable = true;
   };
 }
