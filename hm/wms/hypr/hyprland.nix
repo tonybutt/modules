@@ -105,7 +105,7 @@ in
           monitors =
             (builtins.map (m:"${m.name},${
               if m.enabled
-              then "${builtins.toString m.width}x${builtins.toString m.height}@${builtins.toString m.refreshRate},${m.position},1"
+              then "preferred,${m.position},1"
               else "disabled"
               }"
             ) (cfg.monitors))
