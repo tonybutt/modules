@@ -16,7 +16,7 @@
       kubernetes-helm
       kustomize
       istioctl
-      cilium
+      cilium-cli
       vim
 
       # Shell Utils
