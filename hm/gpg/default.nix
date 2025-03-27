@@ -15,6 +15,22 @@ in
     };
   };
   config = mkIf cfg.enable {
+    service.gpg-agent = {
+      enable = true;
+      enableScDaemon = true;
+      enableSshSupport = true;
+      enableExtraSocket = true;
+      enableZshIntegration = true;
+
+      defaultCacheTtl = 1209600;
+      defaultCacheTtlSsh = 1209600;
+      maxCacheTtl = 1209600;
+      maxCacheTtlSsh = 1209600;
+
+      extraConfig = ''
+        allow-preset-passphrase
+      '';
+    };
     programs.gpg = {
       enable = true;
       scdaemonSettings = {

@@ -1,9 +1,11 @@
-{pkgs, ...}:{
+{ pkgs, ... }:
+{
   imports = [
     ./wms
     ./browsers
     ./git
     ./gpg
+    ./editors
   ];
   config = {
     home.packages = with pkgs; [
@@ -39,5 +41,14 @@
       twofctl
 
     ];
+    programs = {
+      k9s.enable = true;
+      direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+        config.global.hide_env_diff = true;
+      };
+    };
+
   };
 }

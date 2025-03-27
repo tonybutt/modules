@@ -22,13 +22,14 @@
       ...
     }:
     let
-      mkPkgs = system: import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [ twofctl.overlays.default ];
-      };
-      forEachSystem =
-        f: nixpkgs.lib.genAttrs (import systems) (system: f (mkPkgs system));
+      mkPkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ twofctl.overlays.default ];
+        };
+      forEachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f (mkPkgs system));
       treefmtEval = forEachSystem (pkgs: treefmt.lib.evalModule pkgs ./treefmt.nix);
     in
     {
