@@ -2,5 +2,6 @@
   imports = [
     ./wms
     ./browsers
+    ./git
   ];
 }
