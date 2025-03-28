@@ -13,6 +13,7 @@
     ./editors
     ./shells
     ./terminals
+    ./stylix
   ];
   config = {
     stylix.targets.hyprlock.enable = lib.mkForce false;
