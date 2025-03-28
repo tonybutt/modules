@@ -15,7 +15,7 @@ in
     };
   };
   config = mkIf cfg.enable {
-    service.gpg-agent = {
+    services.gpg-agent = {
       enable = true;
       enableScDaemon = true;
       enableSshSupport = true;
