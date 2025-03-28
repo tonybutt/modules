@@ -17,6 +17,7 @@ mount /dev/mapper/crypted /mnt
 mkdir -p /mnt/home/__USER__/nix-config
 cp -R /tmp/cfg/* /mnt/home/__USER__/nix-config
 nixos-enter -c 'chown -R __USER__:users /home/__USER__/nix-config'
+nixos-enter -c 'chmod -R +w /home/__USER__/nix-config'
 
 echo "Setting user __USER__ password"
 nixos-enter -c 'passwd __USER__'
