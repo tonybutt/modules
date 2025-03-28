@@ -55,6 +55,7 @@
         source = ../stylix/assets/walls;
         target = "Wallpapers/Wallpapers/..";
       };
+      stateVersion = "25.05";
     };
     services.cliphist = {
       enable = true;
