@@ -9,6 +9,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       treefmt,
       systems,
@@ -36,5 +37,13 @@
         {
           imports = [ ./hm ];
         };
+      templates = {
+        host = {
+          path = ./templates/secondfront;
+          description = "A basic host setup flake";
+        };
+      };
+
+      defaultTemplate = self.templates.host;
     };
 }
