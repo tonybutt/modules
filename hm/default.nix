@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  user,
+  ...
+}:
 {
   imports = [
     ./wms
@@ -11,41 +16,45 @@
   config = {
     stylix.targets.hyprlock.enable = lib.mkForce false;
     stylix.targets.hyprpaper.enable = lib.mkForce false;
-    home.packages = with pkgs; [
-      # DevOpts
-      awscli2
-      kind
-      fluxcd
-      kubectl
-      kubelogin-oidc
-      kubernetes-helm
-      kustomize
-      istioctl
-      cilium-cli
-      vim
+    home = {
+      username = user.name;
+      homeDirectory = "/home/${user.name}";
+      packages = with pkgs; [
+        # DevOpts
+        awscli2
+        kind
+        fluxcd
+        kubectl
+        kubelogin-oidc
+        kubernetes-helm
+        kustomize
+        istioctl
+        cilium-cli
+        vim
 
-      # Shell Utils
-      tree
-      jq
-      yubikey-manager
-      opensc
+        # Shell Utils
+        tree
+        jq
+        yubikey-manager
+        opensc
 
-      # Clipboard
-      grim
-      slurp
-      swappy
-      wl-clipboard-rs
+        # Clipboard
+        grim
+        slurp
+        swappy
+        wl-clipboard-rs
 
-      # Dev Tools
-      hyprpicker
+        # Dev Tools
+        hyprpicker
 
-      # Chat
-      slack
-    ];
-    home.file."Wallpapers" = {
-      recursive = true;
-      source = ../stylix/assets/walls;
-      target = "Wallpapers/Wallpapers/..";
+        # Chat
+        slack
+      ];
+      file."Wallpapers" = {
+        recursive = true;
+        source = ../stylix/assets/walls;
+        target = "Wallpapers/Wallpapers/..";
+      };
     };
     services.cliphist = {
       enable = true;
