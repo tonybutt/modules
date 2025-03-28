@@ -4,7 +4,7 @@ let
 in
 {
   config = mkIf config.secondfront.hyprland.enable {
-    programs.mako.enable = true;
-    programs.mako.defaultTimeout = 5000;
+    services.mako.enable = true;
+    services.mako.defaultTimeout = 5000;
   };
 }
