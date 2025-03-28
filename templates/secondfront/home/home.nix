@@ -7,19 +7,7 @@
     # Setup your monitors
     {
       name = "eDP-1";
-      enabled = false;
-    }
-    {
-      name = "DP-6";
-      position = "0x0";
-    }
-    {
-      name = "DP-7";
-      position = "auto-right";
-    }
-    {
-      name = "DP-3";
-      position = "auto-left";
+      position = "auto";
     }
   ];
   home.packages = with pkgs; [
@@ -35,8 +23,6 @@
   };
   wayland.windowManager.hyprland = {
     settings = {
-      windowrule = [
-      ];
       exec-once = [
         "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"
       ];
