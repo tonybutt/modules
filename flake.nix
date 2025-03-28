@@ -27,6 +27,12 @@
     in
     {
       formatter = forEachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+      templates = {
+        default = {
+          path = ./templates/secondfront;
+          description = "A basic host setup flake";
+        };
+      };
       nixosModules.secondfront =
         { ... }:
         {
@@ -37,13 +43,5 @@
         {
           imports = [ ./hm ];
         };
-      templates = {
-        host = {
-          path = ./templates/secondfront;
-          description = "A basic host setup flake";
-        };
-      };
-
-      defaultTemplate = self.templates.host;
     };
 }
