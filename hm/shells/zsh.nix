@@ -15,7 +15,7 @@ in
     };
   };
   config = mkIf cfg.zsh.enable {
-    zsh = {
+    programs.zsh = {
       plugins = [
         {
           file = "p10k.zsh";
