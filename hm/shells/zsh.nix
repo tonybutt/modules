@@ -19,7 +19,7 @@ in
       plugins = [
         {
           file = "p10k.zsh";
-          src = ./p10k-config;
+          src = ./.;
           name = "powerlevel10k-config";
         }
         {
