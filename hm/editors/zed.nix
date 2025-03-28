@@ -15,7 +15,7 @@ in
     };
   };
   config = mkIf cfg.zed.enable {
-    zed-editor = {
+    programs.zed-editor = {
       enable = true;
       extraPackages = with pkgs; [
         nixd
