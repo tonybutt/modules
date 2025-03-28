@@ -47,6 +47,10 @@
       source = ../stylix/assets/walls;
       target = "Wallpapers/Wallpapers/..";
     };
+    services.cliphist = {
+      enable = true;
+      allowImages = true;
+    };
     programs = {
       direnv = {
         enable = true;
@@ -59,10 +63,6 @@
         enableZshIntegration = true;
       };
       fastfetch.enable = true;
-      cliphist = {
-        enable = true;
-        allowImages = true;
-      };
     };
   };
 }
