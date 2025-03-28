@@ -25,12 +25,12 @@
       treefmtEval = forEachSystem (pkgs: treefmt.lib.evalModule pkgs ./treefmt.nix);
     in
     {
-      formatter = forEachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
       templates.default = {
         path = ./templates/secondfront;
         description = "A basic host setup flake";
       };
 
+      formatter = forEachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
       nixosModules.secondfront =
         { ... }:
         {
