@@ -7,7 +7,6 @@
     ./gpg
     ./editors
     ./shells
-    ./launchers
   ];
   config = {
     stylix.targets.hyprlock.enable = lib.mkForce false;
