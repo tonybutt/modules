@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./wms
@@ -6,8 +6,12 @@
     ./git
     ./gpg
     ./editors
+    ./shells
+    ./launchers
   ];
   config = {
+    stylix.targets.hyprlock.enable = lib.mkForce false;
+    stylix.targets.hyprpaper.enable = lib.mkForce false;
     home.packages = with pkgs; [
       # DevOpts
       awscli2
@@ -25,6 +29,8 @@
       tree
       jq
       yubikey-manager
+      opensc
+
       # Clipboard
       grim
       slurp
@@ -36,19 +42,28 @@
 
       # Chat
       slack
-
-      # Internal Utils
-      twofctl
-
     ];
+    home.file."Wallpapers" = {
+      recursive = true;
+      source = ../stylix/assets/walls;
+      target = "Wallpapers/Wallpapers/..";
+    };
     programs = {
-      k9s.enable = true;
       direnv = {
         enable = true;
         nix-direnv.enable = true;
         config.global.hide_env_diff = true;
       };
+      btop.enable = true;
+      fzf = {
+        enable = true;
+        enableZshIntegration = true;
+      };
+      fastfetch.enable = true;
+      cliphist = {
+        enable = true;
+        allowImages = true;
+      };
     };
-
   };
 }

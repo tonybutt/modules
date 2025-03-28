@@ -16,6 +16,7 @@ in
   };
 
   config = mkIf cfg.firefox.enable {
+    stylix.targets.firefox.profileNames = [ user.name ];
     programs.firefox =
       let
         lock-false = {

@@ -16,6 +16,7 @@ in
     ./peripherals
     ./users
     ./virtualizations
+    ../stylix
   ];
   options = {
     modules.enable = mkEnableOption "Enable NixOS modules" // {
