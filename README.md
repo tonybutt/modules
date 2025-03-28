@@ -10,6 +10,14 @@
 nix flake new -t github:tonybutt/modules ./my-nix-config
 ```
 
+## Setup
+
+Modify flake.nix with your user settings. Specifically, the user AttrSet.
+
+```bash
+nix flake lock
+```
+
 ## 1. Create a bootable ISO to install onto your machine
 
 HOSTNAME: The machines name
@@ -47,3 +55,15 @@ nh home switch -b bk
 ```
 
 This will install your users configuration onto the machine.
+
+## 5. If you work at 2F you can now uncomment twofctl input and overlay to install that package. Grab an access token from gitlab and create and modify this file.
+
+~/.config/nix/nix.conf
+
+with
+
+```bash
+access-tokens = code.il2.gamewarden.io=PAT:<your_personal_access_token>
+```
+
+TODO: Maybe bring in agenix to store that credential in the repo itself.

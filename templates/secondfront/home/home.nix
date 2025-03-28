@@ -23,7 +23,7 @@
     }
   ];
   home.packages = with pkgs; [
-    twofctl
+    # twofctl
   ];
 
   programs = {
