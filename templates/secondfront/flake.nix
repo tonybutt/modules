@@ -38,7 +38,6 @@
       hyprland,
       disko,
       nixos-hardware,
-      nixcord,
       secondfront,
       ...
     }@inputs:
