@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 with lib;
 let
   cfg = config.secondfront.hyprland.waybar;
@@ -49,6 +49,7 @@ in
           "group/hardware" = {
             orientation = "horizontal";
             modules = [
+              "network"
               "battery"
               "cpu"
               "memory"
@@ -118,6 +119,14 @@ in
             interval = 30;
             format = "{used:0.1f}G/{total:0.1f}G ";
           };
+          "network" = {
+            interval = 1;
+            format-disconnected = "Disconnected ⚠";
+            format-ethernet = "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}";
+            format-linked = "{ifname} (No IP) ";
+            format-wifi = "{essid} ({signalStrength}%) ";
+            on-click = "kitty -e ${pkgs.networkmanager}/bin/nmtui";
+        };
         };
       };
       style = lib.mkAfter (builtins.readFile ./waybar.css);
