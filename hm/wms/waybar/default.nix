@@ -1,9 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
-let
-  cfg = config.secondfront.hyprland.waybar;
-in
-{
+let cfg = config.secondfront.hyprland.waybar;
+in {
   options = {
     secondfront.hyprland.waybar.enable = mkEnableOption "Enable waybar" // {
       default = true;
@@ -15,15 +13,9 @@ in
       systemd.enable = true;
       settings = {
         mainBar = {
-          modules-left = [
-            "custom/os_button"
-            "hyprland/workspaces"
-          ];
+          modules-left = [ "custom/os_button" "hyprland/workspaces" ];
           modules-center = [ "hyprland/window" ];
-          modules-right = [
-            "group/hardware"
-            "clock"
-          ];
+          modules-right = [ "group/hardware" "clock" ];
           "custom/os_button" = {
             format = "";
             on-click = "fuzzel";
@@ -36,27 +28,21 @@ in
             format-window-separator = " ";
             window-rewrite-default = "";
             window-rewrite = {
-              "class<dev.zed.Zed>" = ""; # Windows whose titles contain "youtube"
+              "class<dev.zed.Zed>" =
+                ""; # Windows whose titles contain "youtube"
               "class<firefox>" = ""; # Windows whose classes are "firefox"
-              "class<firefox> title<.*github.*>" = ""; # Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
-              "foot" = ""; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+              "class<firefox> title<.*github.*>" =
+                ""; # Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
+              "foot" =
+                ""; # Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
               "code" = "󰨞";
             };
           };
-          "hyprland/window" = {
-            format = " {title}";
-          };
+          "hyprland/window" = { format = " {title}"; };
           "group/hardware" = {
             orientation = "horizontal";
-            modules = [
-              "network"
-              "battery"
-              "cpu"
-              "memory"
-            ];
-            drawer = {
-              transition-duration = 500;
-            };
+            modules = [ "network" "battery" "cpu" "memory" ];
+            drawer = { transition-duration = 500; };
           };
           "memory" = { };
           "clock" = {
@@ -92,13 +78,7 @@ in
               "critical" = 1;
             };
             format = "{icon} {capacity}%";
-            format-icons = [
-              ""
-              ""
-              ""
-              ""
-              ""
-            ];
+            format-icons = [ "" "" "" "" "" ];
             max-length = 25;
           };
           "cpu" = {
@@ -122,11 +102,13 @@ in
           "network" = {
             interval = 1;
             format-disconnected = "Disconnected ⚠";
-            format-ethernet = "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}";
+            format-ethernet =
+              "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}";
             format-linked = "{ifname} (No IP) ";
             format-wifi = "{essid} ({signalStrength}%) ";
-            on-click = "kitty -e ${pkgs.networkmanager}/bin/nmtui";
-        };
+            on-click =
+              "kitty --class dropdown -e ${pkgs.networkmanager}/bin/nmtui";
+          };
         };
       };
       style = lib.mkAfter (builtins.readFile ./waybar.css);
