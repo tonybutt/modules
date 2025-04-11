@@ -108,9 +108,12 @@ in
           };
 
           monitor =
-            (builtins.map (m: "${m.name},${if m.enabled then "preferred,${m.position},1" else "disabled"}") (
-              cfg.monitors
-            ))
+            (builtins.map (
+              m:
+              "${m.name},${
+                if m.enabled then "${m.width}x${m.height}@${m.refreshRate},${m.position},1" else "disabled"
+              }"
+            ) (cfg.monitors))
             ++ [
               ",preferred,auto,1"
             ];
