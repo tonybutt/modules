@@ -7,6 +7,7 @@ let
     mkOption
     types
     ;
+  inherit (builtins) map toString;
 in
 {
   options = {
@@ -108,10 +109,13 @@ in
           };
 
           monitor =
-            (builtins.map (
+            (map (
               m:
               "${m.name},${
-                if m.enabled then "${m.width}x${m.height}@${m.refreshRate},${m.position},1" else "disabled"
+                if m.enabled then
+                  "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},1"
+                else
+                  "disabled"
               }"
             ) (cfg.monitors))
             ++ [
