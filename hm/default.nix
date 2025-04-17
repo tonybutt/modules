@@ -18,47 +18,58 @@
   config = {
     stylix.targets.hyprlock.enable = lib.mkForce false;
     stylix.targets.hyprpaper.enable = lib.mkForce false;
-    home = {
-      username = user.name;
-      homeDirectory = "/home/${user.name}";
-      packages = with pkgs; [
-        # DevOpts
-        awscli2
-        kind
-        fluxcd
-        kubectl
-        kubelogin-oidc
-        kubernetes-helm
-        kustomize
-        istioctl
-        cilium-cli
-        vim
+    home =
+      let
+        patched_opensc = pkgs.opensc.overrideAttrs (_old: {
+          version = "0.25.1";
+          src = pkgs.fetchFromGitHub {
+            owner = "OpenSC";
+            repo = "OpenSC";
+            rev = "0.25.1";
+            sha256 = "sha256-Ktvp/9Hca87qWmDlQhFzvWsr7TvNpIAvOFS+4zTZbB8=";
+          };
+        });
+      in
+      {
+        username = user.name;
+        homeDirectory = "/home/${user.name}";
+        packages = with pkgs; [
+          # DevOpts
+          awscli2
+          kind
+          fluxcd
+          kubectl
+          kubelogin-oidc
+          kubernetes-helm
+          kustomize
+          istioctl
+          cilium-cli
+          vim
 
-        # Shell Utils
-        tree
-        jq
-        yubikey-manager
-        opensc
+          # Shell Utils
+          tree
+          jq
+          yubikey-manager
+          patched_opensc
+          # Clipboard
+          grim
+          slurp
+          swappy
+          wl-clipboard-rs
 
-        # Clipboard
-        grim
-        slurp
-        swappy
-        wl-clipboard-rs
+          # Dev Tools
+          hyprpicker
 
-        # Dev Tools
-        hyprpicker
-
-        # Chat
-        slack
-      ];
-      file."Wallpapers" = {
-        recursive = true;
-        source = ../stylix/assets/walls;
-        target = "Wallpapers/Wallpapers/..";
+          # Chat
+          slack
+        ];
+        file."Wallpapers" = {
+          recursive = true;
+          source = ../stylix/assets/walls;
+          target = "Wallpapers/Wallpapers/..";
+        };
+        stateVersion = "25.05";
       };
-      stateVersion = "25.05";
-    };
     services.cliphist = {
       enable = true;
       allowImages = true;
