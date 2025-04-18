@@ -32,9 +32,9 @@ in
           network = {
             interval = 1;
             format-disconnected = "Disconnected :warning:";
-            format-ethernet = "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}";
+            format-ethernet = "";
             format-linked = "{ifname} (No IP) ";
-            format-wifi = "{essid} ({signalStrength}%) ";
+            format-wifi = "{essid} ";
             on-click = "${pkgs.kitty}/bin/kitty --class dropdown -e ${pkgs.networkmanager}/bin/nmtui";
           };
           pulseaudio = {
