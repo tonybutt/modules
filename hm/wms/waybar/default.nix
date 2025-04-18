@@ -28,8 +28,6 @@ in
           modules-right = [
             "group/hardware"
             "clock"
-            "network"
-            "pulseaudio"
           ];
           network = {
             interval = 1;
@@ -86,6 +84,8 @@ in
               "battery"
               "cpu"
               "memory"
+              "network"
+              "pulseaudio"
             ];
             drawer = {
               transition-duration = 500;
