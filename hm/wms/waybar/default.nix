@@ -23,7 +23,36 @@ in
           modules-right = [
             "group/hardware"
             "clock"
+            "network"
+            "pulseaudio"
           ];
+          network = {
+            interval = 1;
+            format-disconnected = "Disconnected :warning:";
+            format-ethernet = "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}";
+            format-linked = "{ifname} (No IP) ";
+            format-wifi = "{essid} ({signalStrength}%) ";
+            on-click = "${pkgs.kitty}/bin/kitty --class dropdown -e ${pkgs.networkmanager}/bin/nmtui";
+          };
+          pulseaudio = {
+            scroll-step = 1;
+            format = "{volume}% {icon}";
+            format-bluetooth = "{volume}% {icon}";
+            format-muted = "";
+            format-icons = {
+              headphones = "";
+              handsfree = "";
+              headset = "";
+              phone = "";
+              portable = "";
+              car = "";
+              default = [
+                ""
+                ""
+              ];
+            };
+            on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+          };
           "custom/os_button" = {
             format = "";
             on-click = "fuzzel";
