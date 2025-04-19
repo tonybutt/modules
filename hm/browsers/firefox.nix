@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   user,
   ...
@@ -43,6 +44,11 @@ in
         # ---- POLICIES ----
         # Check about:policies#documentation for options.
         policies = {
+          SecurityDevices = {
+            Add = {
+              "Yubikey/Smartcard" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
+            };
+          };
           OfferToSaveLoginsDefault = false;
           DisableTelemetry = true;
           DisableFirefoxStudies = true;
