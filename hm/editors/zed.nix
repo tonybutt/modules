@@ -22,6 +22,7 @@ in
         nil
         yaml-language-server
         nodePackages.vscode-json-languageserver
+        package-version-server
       ];
       extensions = [
         "nix"
@@ -40,11 +41,10 @@ in
             ];
             formatter = {
               external = {
-                command = "nixfmt";
+                command = "nix fmt";
               };
             };
           };
-
         };
         assistant = {
           enabled = true;
