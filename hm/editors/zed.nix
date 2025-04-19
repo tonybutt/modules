@@ -18,8 +18,8 @@ in
     programs.zed-editor = {
       enable = true;
       extraPackages = with pkgs; [
-        nixd
         nil
+        nixfmt-rfc-style
         yaml-language-server
         nodePackages.vscode-json-languageserver
         package-version-server
@@ -41,7 +41,7 @@ in
             ];
             formatter = {
               external = {
-                command = "nix fmt";
+                command = "nixfmt";
               };
             };
           };
