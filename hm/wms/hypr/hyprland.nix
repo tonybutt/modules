@@ -34,6 +34,10 @@ in
               type = types.int;
               default = 60;
             };
+            scale = mkOption {
+              type = types.int;
+              default = 1;
+            };
             position = mkOption {
               type = types.str;
               default = "auto";
@@ -113,7 +117,7 @@ in
               m:
               "${m.name},${
                 if m.enabled then
-                  "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},1"
+                  "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},${toString m.scale}"
                 else
                   "disabled"
               }"
