@@ -35,8 +35,8 @@ in
               default = 60;
             };
             scale = mkOption {
-              type = types.int;
-              default = 1;
+              type = types.str;
+              default = "1";
             };
             position = mkOption {
               type = types.str;
