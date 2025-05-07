@@ -95,7 +95,11 @@ in
     };
 
     security = {
-      sudo.execWheelOnly = true;
+      sudo-rs = {
+        enable = true;
+        execWheelOnly = true;
+      };
+      sudo.enable = false;
       auditd.enable = true;
       audit.enable = true;
       rtkit.enable = true;
