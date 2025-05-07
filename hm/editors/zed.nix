@@ -61,6 +61,9 @@ in
         vim_mode = true;
         autosave = "on_focus_change";
         relative_line_numbers = true;
+        git_panel = {
+          dock = "right";
+        };
         project_panel = {
           dock = "right";
         };
