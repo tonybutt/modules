@@ -126,8 +126,8 @@ in
               ",preferred,auto,1"
             ];
           general = {
-            "col.active_border" = "${activeGradient}";
-            "col.inactive_border" = "${inactiveGradient}";
+            "col.active_border" = lib.mkDefault "${activeGradient}";
+            "col.inactive_border" = lib.mkDefault "${inactiveGradient}";
             gaps_in = 1;
             gaps_out = 5;
             border_size = 2;
@@ -168,13 +168,13 @@ in
             preserve_split = true; # you probably want this
           };
           group = {
-            "col.border_active" = lib.mkForce "${activeGradient}";
-            "col.border_inactive" = lib.mkForce "${inactiveGradient}";
+            "col.border_active" = lib.mkDefault "${activeGradient}";
+            "col.border_inactive" = lib.mkDefault "${inactiveGradient}";
             groupbar = {
               gradients = true;
               font_family = "OpenSans Bold";
-              text_color = lib.mkForce (rgb colors.base0B);
-              "col.active" = lib.mkForce "${tabGradient}";
+              text_color = lib.mkDefault (rgb colors.base0B);
+              "col.active" = lib.mkDefault "${tabGradient}";
               font_size = 28;
               height = 28;
               indicator_height = 1;
