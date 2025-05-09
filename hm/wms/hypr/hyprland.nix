@@ -126,8 +126,8 @@ in
               ",preferred,auto,1"
             ];
           general = {
-            "col.active_border" = lib.mkForce "${activeGradient}";
-            "col.inactive_border" = lib.mkForce "${inactiveGradient}";
+            "col.active_border" = "${activeGradient}";
+            "col.inactive_border" = "${inactiveGradient}";
             gaps_in = 1;
             gaps_out = 5;
             border_size = 2;
