@@ -18,6 +18,10 @@ in
       type = types.listOf (
         types.submodule {
           options = {
+            transform = mkOption {
+              type = types.bool;
+              default = false;
+            };
             name = mkOption {
               type = types.str;
               example = "DP-1";
@@ -117,7 +121,10 @@ in
               m:
               "${m.name},${
                 if m.enabled then
-                  "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},${toString m.scale}"
+                  if m.transform then
+                    "transform,${toString m.scale}"
+                  else
+                    "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},${toString m.scale}"
                 else
                   "disabled"
               }"
