@@ -5,6 +5,8 @@ in
 {
   config = mkIf config.secondfront.hyprland.enable {
     services.mako.enable = true;
-    services.mako.settings.default-timeout = 5000;
+    services.mako.settings = {
+      default-timeout = 5000;
+    };
   };
 }
