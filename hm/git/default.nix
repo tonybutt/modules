@@ -40,7 +40,7 @@ in
         rerere.enabled = true;
         help.autocorrect = 10;
         diff.histogram = "histogram";
-        core.pager = "delta";
+        core.pager = "${pkgs.delta}/bin/delta";
       };
     };
   };
