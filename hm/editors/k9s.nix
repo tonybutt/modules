@@ -43,7 +43,7 @@
               exit 1
             fi
             source "$HOME/.config/2fctl/credentials.sh"
-            ${pkgs.awscli2}/bin/aws --region "$region" ssm start-session --target "$instance_id"
+            ${pkgs.awscli2}/bin/aws ssm start-session --target "$instance_id"
           '';
         };
         mkToggle = scope: resource: {
