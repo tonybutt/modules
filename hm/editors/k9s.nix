@@ -35,7 +35,7 @@
             instance_id="''${provider_id##*/}"
             if [[ -z "$instance_id" || "$instance_id" == "None" ]]; then
               echo "⚠️ Could not extract instance ID from providerID"
-              read -p "Press any key to continue..."
+              read -r -p "Press any key to continue..."
               exit 1
             fi
             ${pkgs.awscli2}/bin/aws ssm start-session --target "$instance_id"
