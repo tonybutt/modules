@@ -31,7 +31,8 @@
           name = "ssm";
           runtimeInputs = [ pkgs.ssm-session-manager-plugin ];
           text = ''
-              provider_id=$(${pkgs.kubectl}/bin/kubectl get node "$NAME" -o jsonpath='{.spec.providerID}')
+            NAME=$1
+            provider_id=$(${pkgs.kubectl}/bin/kubectl get node "$NAME" -o jsonpath='{.spec.providerID}')
             instance_id="''${provider_id##*/}"
             if [[ -z "$instance_id" || "$instance_id" == "None" ]]; then
               echo "⚠️ Could not extract instance ID from providerID"
@@ -92,6 +93,7 @@
           scopes = [ "nodes" ];
           background = false;
           command = "${ssm}/bin/ssm";
+          args = [ "$NAME" ];
         };
         toggle-helmrelease = mkToggle "helmreleases" "hr";
         toggle-ks = mkToggle "kustomizations" "ks";
