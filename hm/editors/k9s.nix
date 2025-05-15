@@ -34,12 +34,15 @@
             NAME=$1
             provider_id=$(${pkgs.kubectl}/bin/kubectl get node "$NAME" -o jsonpath='{.spec.providerID}')
             instance_id="''${provider_id##*/}"
+            az="''${provider_id%/*}"
+            az="''${az##*/}"
+            region="''${az::-1}"
             if [[ -z "$instance_id" || "$instance_id" == "None" ]]; then
               echo "⚠️ Could not extract instance ID from providerID"
               read -r -p "Press any key to continue..."
               exit 1
             fi
-            ${pkgs.awscli2}/bin/aws ssm start-session --target "$instance_id"
+            ${pkgs.awscli2}/bin/aws --region "$region" ssm start-session --target "$instance_id"
           '';
         };
         mkToggle = scope: resource: {
