@@ -13,6 +13,9 @@
         toggle-helmrelease = pkgs.writeShellApplication {
           name = "thr";
           text = ''
+            CONTEXT=$1
+            NAMESPACE=$2
+            NAME=$3
             suspended=$(${pkgs.kubectl}/bin/kubectl --context "$CONTEXT" get helmreleases -n "$NAMESPACE" "$NAME" -o=custom-columns=TYPE:.spec.suspend | tail -1)
             toggle=""
             if [ "$suspended" = "true" ]; then
@@ -37,7 +40,7 @@
           shortCut = "Shift-T";
           description = "Suspend/Resume HR";
           scopes = [ "helmreleases" ];
-          command = "${toggle-helmrelease}/bin/thr";
+          command = "${toggle-helmrelease}/bin/thr $CONTEXT $NAMESPACE $NAME";
           background = true;
         };
       };
