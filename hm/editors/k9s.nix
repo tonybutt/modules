@@ -41,8 +41,8 @@
               read -r -p "Press any key to continue..."
               exit 1
             fi
-            # shellcheck source=/home/${user.name}/config/2fctl/credentials.sh
-            . /home/${user.name}/config/2fctl/credentials.sh
+            # shellcheck disable=SC1091
+            source /home/${user.name}/config/2fctl/credentials.sh
             ${pkgs.awscli2}/bin/aws ssm start-session --target "$instance_id"
           '';
         };
