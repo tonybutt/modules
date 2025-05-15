@@ -18,13 +18,13 @@
   config = {
     stylix.targets.hyprlock.enable = lib.mkForce false;
     stylix.targets.hyprpaper.enable = lib.mkForce false;
-    home = {
-      xdg = {
-        enable = true;
-        defaultApplications = {
-          "x-scheme-handler/https" = [ "firefox.desktop" ];
-        };
+    xdg = {
+      enable = true;
+      mimeApps.defaultApplications = {
+        "x-scheme-handler/https" = [ "firefox.desktop" ];
       };
+    };
+    home = {
       username = user.name;
       homeDirectory = "/home/${user.name}";
       packages = with pkgs; [
