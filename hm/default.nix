@@ -18,47 +18,52 @@
   config = {
     stylix.targets.hyprlock.enable = lib.mkForce false;
     stylix.targets.hyprpaper.enable = lib.mkForce false;
-    home =
-      {
-        username = user.name;
-        homeDirectory = "/home/${user.name}";
-        packages = with pkgs; [
-          # DevOpts
-          awscli2
-          kind
-          fluxcd
-          kubectl
-          kubelogin-oidc
-          kubernetes-helm
-          kustomize
-          istioctl
-          cilium-cli
-          vim
-
-          # Shell Utils
-          tree
-          jq
-          yubikey-manager
-
-          # Clipboard
-          grim
-          slurp
-          swappy
-          wl-clipboard-rs
-
-          # Dev Tools
-          hyprpicker
-
-          # Chat
-          slack
-        ];
-        file."Wallpapers" = {
-          recursive = true;
-          source = ../stylix/assets/walls;
-          target = "Wallpapers/Wallpapers/..";
+    home = {
+      xdg = {
+        enable = true;
+        defaultApplications = {
+          "x-scheme-handler/https" = [ "firefox.desktop" ];
         };
-        stateVersion = "25.05";
       };
+      username = user.name;
+      homeDirectory = "/home/${user.name}";
+      packages = with pkgs; [
+        # DevOpts
+        awscli2
+        kind
+        fluxcd
+        kubectl
+        kubelogin-oidc
+        kubernetes-helm
+        kustomize
+        istioctl
+        cilium-cli
+        vim
+
+        # Shell Utils
+        tree
+        jq
+        yubikey-manager
+
+        # Clipboard
+        grim
+        slurp
+        swappy
+        wl-clipboard-rs
+
+        # Dev Tools
+        hyprpicker
+
+        # Chat
+        slack
+      ];
+      file."Wallpapers" = {
+        recursive = true;
+        source = ../stylix/assets/walls;
+        target = "Wallpapers/Wallpapers/..";
+      };
+      stateVersion = "25.05";
+    };
     services.cliphist = {
       enable = true;
       allowImages = true;
