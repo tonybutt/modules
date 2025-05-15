@@ -13,7 +13,14 @@
         toggle-helmrelease = pkgs.writeShellApplication {
           name = "thr";
           text = ''
-            ${pkgs.fluxcd}/bin/flux --context "$CONTEXT" $([ $(${pkgs.kubectl}/bin/kubectl --context "$CONTEXT" get helmreleases -n "$NAMESPACE" "$NAME" -o=custom-columns=TYPE:.spec.suspend | tail -1) = "true" ] && echo "resume" || echo "suspend") helmrelease -n "$NAMESPACE" "$NAME" |& less
+            suspended=$(${pkgs.kubectl}/bin/kubectl --context "$CONTEXT" get helmreleases -n "$NAMESPACE" "$NAME" -o=custom-columns=TYPE:.spec.suspend | tail -1)
+            toggle=""
+            if [ suspended = "true" ] then;
+              toggle="resume"
+            else
+              toggle="suspend"
+            fi
+            ${pkgs.fluxcd}/bin/flux --context "$CONTEXT" hr -n "$NAMESPACE" "$NAME" "$toggle"
           '';
         };
       in
