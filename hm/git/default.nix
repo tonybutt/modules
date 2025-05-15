@@ -31,6 +31,16 @@ in
         core.editor = "vim";
         init.defaultBranch = "main";
         credential.helper = "libsecret";
+        push.autoSetupRemote = true;
+        pull.rebase = true;
+        merge.conflictStyle = "zdiff3";
+        rebase.autosquash = true;
+        rebase.autostash = true;
+        commit.verbose = true;
+        rerere.enabled = true;
+        help.autocorrect = 10;
+        diff.histogram = "histogram";
+        core.pager = "delta";
       };
     };
   };
