@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 {
   programs.k9s = {
     enable = true;
@@ -36,13 +36,12 @@
             instance_id="''${provider_id##*/}"
             az="''${provider_id%/*}"
             az="''${az##*/}"
-            region="''${az::-1}"
             if [[ -z "$instance_id" || "$instance_id" == "None" ]]; then
               echo "⚠️ Could not extract instance ID from providerID"
               read -r -p "Press any key to continue..."
               exit 1
             fi
-            source "$HOME/.config/2fctl/credentials.sh"
+            source "/home/${user.name}/config/2fctl/credentials.sh"
             ${pkgs.awscli2}/bin/aws ssm start-session --target "$instance_id"
           '';
         };
