@@ -43,7 +43,7 @@ in
         {
           rb = "nh os switch ${flakeDir}";
           rbh = "nh home switch ${flakeDir}";
-          upd = "nix flake update";
+          upd = "nh home switch ${flakeDir} --update";
           zed = "zeditor";
         };
       historySubstringSearch.enable = true;
