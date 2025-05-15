@@ -15,7 +15,7 @@
           text = ''
             suspended=$(${pkgs.kubectl}/bin/kubectl --context "$CONTEXT" get helmreleases -n "$NAMESPACE" "$NAME" -o=custom-columns=TYPE:.spec.suspend | tail -1)
             toggle=""
-            if [ suspended = "true" ] then;
+            if [ suspended = "true" ]; then
               toggle="resume"
             else
               toggle="suspend"
