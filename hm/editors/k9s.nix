@@ -27,6 +27,20 @@
             ${pkgs.fluxcd}/bin/flux "$toggle" --context "$CONTEXT" $RESOURCE -n "$NAMESPACE" "$NAME"
           '';
         };
+        ssm = pkgs.writeShellApplication {
+          name = "ssm";
+          runtimeInputs = [ pkgs.ssm-session-manager-plugin ];
+          text = ''
+              provider_id=$(${pkgs.kubectl}/bin/kubectl get node "$NAME" -o jsonpath='{.spec.providerID}')
+            instance_id="''${provider_id##*/}"
+            if [[ -z "$instance_id" || "$instance_id" == "None" ]]; then
+              echo "⚠️ Could not extract instance ID from providerID"
+              read -p "Press any key to continue..."
+              exit 1
+            fi
+            ${pkgs.awscli2}/bin/aws ssm start-session --target "$instance_id"
+          '';
+        };
         mkToggle = scope: resource: {
           shortCut = "Shift-T";
           description = "Suspend/Resume ${scope}";
@@ -41,7 +55,7 @@
           ];
         };
         mkReconcile = command: resource: force: {
-          shortCut = "Shift-R";
+          shortCut = "Shift-${if force != "" then "F" else "R"}";
           confirm = false;
           description = "Flux reconcile";
           scopes = [ "${resource}" ];
@@ -62,12 +76,33 @@
           background = false;
           confirm = true;
         };
+        dive = {
+          shortCut = "d";
+          confirm = false;
+          description = "Dive Image";
+          scopes = [ "containers" ];
+          command = "${pkgs.dive}/bin/dive";
+          background = false;
+          args = [ "$COL-IMAGE" ];
+        };
+        ssm-shell = {
+          shortCut = "s";
+          confirm = false;
+          description = "Start SSM to EC2";
+          scopes = [ "nodes" ];
+          background = false;
+          command = "${ssm}/bin/ssm";
+        };
         toggle-helmrelease = mkToggle "helmreleases" "hr";
         toggle-ks = mkToggle "kustomizations" "ks";
         reconcile-hr = mkReconcile "hr" "helmreleases" "";
         reconcile-hr-force = mkReconcile "hr" "helmreleases" "--force";
         reconcile-git = mkReconcile "source git" "gitrepositories" "";
         reconcile-helm = mkReconcile "source helm" "helmrepositories" "";
+        reconcile-oci = mkReconcile "source oci" "helmrepositories" "";
+        reconcile-ks = mkReconcile "ks" "kustomizations" "";
+        reconcile-ir = mkReconcile "image repository" "imagerepositories" "";
+        reconcile-iua = mkReconcile "image update" "imageupateautomations" "";
       };
   };
 
