@@ -20,8 +20,11 @@
     stylix.targets.hyprpaper.enable = lib.mkForce false;
     xdg = {
       enable = true;
-      mimeApps.defaultApplications = {
-        "x-scheme-handler/https" = [ "firefox.desktop" ];
+      mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "x-scheme-handler/https" = [ "firefox.desktop" ];
+        };
       };
     };
     home = {
