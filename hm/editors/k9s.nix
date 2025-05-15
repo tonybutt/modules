@@ -20,7 +20,7 @@
             else
               toggle="suspend"
             fi
-            ${pkgs.fluxcd}/bin/flux --context "$CONTEXT" hr -n "$NAMESPACE" "$NAME" "$toggle"
+            ${pkgs.fluxcd}/bin/flux "$toggle" --context "$CONTEXT" hr -n "$NAMESPACE" "$NAME"
           '';
         };
       in
