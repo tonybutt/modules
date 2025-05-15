@@ -40,8 +40,13 @@
           shortCut = "Shift-T";
           description = "Suspend/Resume HR";
           scopes = [ "helmreleases" ];
-          command = "${toggle-helmrelease}/bin/thr $CONTEXT $NAMESPACE $NAME";
+          command = "${toggle-helmrelease}/bin/thr";
           background = true;
+          args = [
+            "$CONTEXT"
+            "$NAMESPACE"
+            "$NAME"
+          ];
         };
       };
   };
