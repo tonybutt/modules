@@ -201,6 +201,7 @@ in
             enable_swallow = true;
             render_ahead_of_time = false;
             disable_hyprland_logo = true;
+            focus_on_activate = true;
           };
 
           exec-once = [
