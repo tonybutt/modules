@@ -42,6 +42,7 @@
               read -r -p "Press any key to continue..."
               exit 1
             fi
+            source "$HOME/.config/2fctl/credentials.sh"
             ${pkgs.awscli2}/bin/aws --region "$region" ssm start-session --target "$instance_id"
           '';
         };
