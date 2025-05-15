@@ -24,7 +24,7 @@
             else
               toggle="suspend"
             fi
-            ${pkgs.fluxcd}/bin/flux "$toggle" --context "$CONTEXT" $RESOURCE -n "$NAMESPACE" "$NAME"
+            ${pkgs.fluxcd}/bin/flux "$toggle" --context "$CONTEXT" "$RESOURCE" -n "$NAMESPACE" "$NAME"
           '';
         };
         ssm = pkgs.writeShellApplication {
