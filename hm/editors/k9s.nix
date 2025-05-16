@@ -32,7 +32,8 @@
           runtimeInputs = [ pkgs.ssm-session-manager-plugin ];
           text = ''
             NAME=$1
-            provider_id=$(${pkgs.kubectl}/bin/kubectl get node "$NAME" -o jsonpath='{.spec.providerID}')
+            CONTEXT=$2
+            provider_id=$(${pkgs.kubectl}/bin/kubectl --context "$CONTEXT" get node "$NAME" -o jsonpath='{.spec.providerID}')
             instance_id="''${provider_id##*/}"
             az="''${provider_id%/*}"
             az="''${az##*/}"
@@ -97,7 +98,10 @@
           scopes = [ "nodes" ];
           background = false;
           command = "${ssm}/bin/ssm";
-          args = [ "$NAME" ];
+          args = [
+            "$NAME"
+            "$CONTEXT"
+          ];
         };
         toggle-helmrelease = mkToggle "helmreleases" "hr";
         toggle-ks = mkToggle "kustomizations" "ks";
