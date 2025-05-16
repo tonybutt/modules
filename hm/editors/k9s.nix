@@ -109,7 +109,7 @@
         reconcile-hr-force = mkReconcile "hr" "helmreleases" "--force";
         reconcile-git = mkReconcile "source git" "gitrepositories" "";
         reconcile-helm = mkReconcile "source helm" "helmrepositories" "";
-        reconcile-oci = mkReconcile "source oci" "helmrepositories" "";
+        reconcile-oci = mkReconcile "source oci" "ocirepositories" "";
         reconcile-ks = mkReconcile "ks" "kustomizations" "";
         reconcile-ir = mkReconcile "image repository" "imagerepositories" "";
         reconcile-iua = mkReconcile "image update" "imageupateautomations" "";
