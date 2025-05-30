@@ -9,8 +9,6 @@
 with lib;
 let
   cfg = config.modules.hyprland;
-  hypr-pkgs = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
-  hypr-nixpkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   options = {
@@ -46,17 +44,11 @@ in
     };
     programs.hyprland = {
       enable = true;
-      package = hypr-pkgs.hyprland;
-      portalPackage = hypr-pkgs.xdg-desktop-portal-hyprland;
       xwayland.enable = true;
     };
     xdg.portal = {
       enable = true;
       config.common.default = [ "hyprland" ];
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-        hypr-pkgs.xdg-desktop-portal-hyprland
-      ];
     };
     hardware = {
       nvidia = {
@@ -65,8 +57,6 @@ in
       };
       graphics = {
         enable = true;
-        package = hypr-nixpkgs.mesa;
-        package32 = hypr-nixpkgs.pkgsi686Linux.mesa;
         enable32Bit = true;
       };
     };
