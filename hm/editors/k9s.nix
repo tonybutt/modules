@@ -2,7 +2,7 @@
 {
   programs.k9s = {
     enable = true;
-    plugin =
+    plugins =
       let
         debug-command = pkgs.writeShellApplication {
           name = "debug";
