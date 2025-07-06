@@ -26,18 +26,49 @@ in
               type = types.str;
               example = "DP-1";
             };
+            
+            resolution = mkOption {
+              type = types.either types.str (types.submodule {
+                options = {
+                  width = mkOption {
+                    type = types.int;
+                    example = 1920;
+                  };
+                  height = mkOption {
+                    type = types.int;
+                    example = 1080;
+                  };
+                  refreshRate = mkOption {
+                    type = types.int;
+                    default = 60;
+                  };
+                };
+              });
+              default = "preferred";
+              example = "highres@highrr";
+              description = ''
+                Monitor resolution. Can be:
+                - "highres@highrr" - Highest resolution at highest refresh rate
+                - "preferred" - Use monitor's preferred mode  
+                - "auto" - Let Hyprland decide
+                - { width = 1920; height = 1080; refreshRate = 60; } - Explicit resolution
+              '';
+            };
+
+            # DEPRECATED: Keep for backwards compatibility
             width = mkOption {
-              type = types.int;
-              example = 1920;
+              type = types.nullOr types.int;
+              default = null;
             };
             height = mkOption {
-              type = types.int;
-              example = 1080;
+              type = types.nullOr types.int;
+              default = null;
             };
             refreshRate = mkOption {
-              type = types.int;
-              default = 60;
+              type = types.nullOr types.int;
+              default = null;
             };
+
             scale = mkOption {
               type = types.str;
               default = "1";
@@ -83,6 +114,18 @@ in
           activeGradient = "${rgb colors.base0B} ${rgb colors.base0A} 45deg";
           inactiveGradient = "${rgb colors.base00}";
           tabGradient = "${rgb colors.base00} ${rgb colors.base02}";
+          
+          # Helper function to build resolution string
+          buildResolution = m:
+            if builtins.isAttrs m.resolution then
+              # Structured resolution
+              "${toString m.resolution.width}x${toString m.resolution.height}@${toString m.resolution.refreshRate}"
+            else if m.width != null && m.height != null then
+              # Backwards compatibility
+              "${toString m.width}x${toString m.height}@${toString (if m.refreshRate != null then m.refreshRate else 60)}"
+            else
+              # String resolution (preferred, auto, highres@highrr, etc.)
+              m.resolution;
         in
         {
           "$mainMod" = cfg.mainMod;
@@ -124,9 +167,9 @@ in
                   if m.transform then
                     "transform,${toString m.scale}"
                   else
-                    "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},${toString m.scale}"
+                    "${buildResolution m},${m.position},${toString m.scale}"
                 else
-                  "disabled"
+                  "disable"
               }"
             ) (cfg.monitors))
             ++ [
