@@ -36,7 +36,7 @@
         {
           imports = [ ./nixos ];
         };
-      homeManagerModules.secondfront =
+      homeModules.secondfront =
         { ... }:
         {
           imports = [ ./hm ];
