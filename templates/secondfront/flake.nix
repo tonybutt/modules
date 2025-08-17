@@ -91,8 +91,8 @@
           };
           modules = [
             ./home/home.nix
-            stylix.homeManagerModules.stylix
-            secondfront.homeManagerModules.secondfront
+            stylix.homeModules.stylix
+            secondfront.homeModules.secondfront
           ];
         };
       };
