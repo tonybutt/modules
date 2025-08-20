@@ -2,13 +2,14 @@
   pkgs,
   config,
   lib,
-  inputs,
   user,
   ...
 }:
 with lib;
 let
   cfg = config.modules.hyprland;
+  tuigreet = "${pkgs.tuigreet}/bin/tuigreet";
+  session = "${pkgs.hyprland}/bin/Hyprland";
 in
 {
   options = {
@@ -21,9 +22,13 @@ in
       greetd = {
         enable = true;
         settings = {
-          default_session = {
-            command = "${pkgs.greetd.tuigreet}/bin/tuigreet --asterisks --time --remember --remember-session --sessions ${pkgs.hyprland}/share/wayland-sessions";
+          initial_session = {
+            command = "${session}";
             user = "${user.name}";
+          };
+          default_session = {
+            command = "${tuigreet} --greeting 'Welcome to NixOS!' --asterisks --time --remember --remember-user-session -cmd ${session}";
+            user = "greeter";
           };
         };
       };
