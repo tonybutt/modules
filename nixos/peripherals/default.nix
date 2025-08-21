@@ -21,12 +21,19 @@ in
       extraModprobeConfig =
         (
           if cfg.obs.enable then
-            ''options v4l2loopback devices=1 video_nr=10 card_label="Virtual Camera"''
+            ''
+              options v4l2loopback devices=1 video_nr=10 card_label="Virtual Camera"
+            ''
           else
             ""
         )
         + (
-          if cfg.scarlettRite.enable then "options snd_usb_audio vid=0x1235 pid=0x8212 device_setup=1" else ""
+          if cfg.scarlettRite.enable then
+            ''
+              options snd_usb_audio vid=0x1235 pid=0x8212 device_setup=1
+            ''
+          else
+            ""
         );
     };
   };
